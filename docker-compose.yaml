@@ -11,11 +11,11 @@ services:
     networks:
       - coffee
     volumes:
-      - ./proxy/hysteria/config.json:/root/proxy/hysteria/config.json
+      - ./proxy/hysteria2/config.json:/root/proxy/hysteria2/config.json
       - ${LOCALCERTPATH}:${CERTPATH}
       - ${LOCALPKEYPATH}:${PKEYPATH}
     restart: unless-stopped
-    command: server -c /root/proxy/hysteria/config.json
+    command: server -c /root/proxy/hysteria2/config.json
 
   shadowsocks:
     image: shadowsocks/shadowsocks-libev:v3.3.5
