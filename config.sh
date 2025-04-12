@@ -2,7 +2,7 @@
 
 source .env
 
-cat > ./proxy/hysteria2/config.json <<EOL
+cat > ./proxy/hysteria2/config.json <<EOF
 {
     "listen": ":443",
     "tls": {
@@ -43,9 +43,9 @@ cat > ./proxy/hysteria2/config.json <<EOL
         }
     }
 }
-EOL
+EOF
 
-cat > ./proxy/shadowsocks/config.json <<EOL
+cat > ./proxy/shadowsocks/config.json <<EOF
 { 
   "server":"0.0.0.0", 
   "server_port":443, 
@@ -53,9 +53,9 @@ cat > ./proxy/shadowsocks/config.json <<EOL
   "password":"$PASSWORD", 
   "method":"chacha20-ietf-poly1305" 
 }
-EOL
+EOF
 
-cat > ./proxy/juicity/config.json <<EOL
+cat > ./proxy/juicity/config.json <<EOF
 {
   "listen": ":443",
   "users": {
@@ -66,9 +66,9 @@ cat > ./proxy/juicity/config.json <<EOL
   "congestion_control": "bbr",
   "log_level": "info"
 }
-EOL
+EOF
 
-cat > ./proxy/trojan/config.json <<EOL
+cat > ./proxy/trojan/config.json <<EOF
 {
     "run_type": "server",
     "local_addr": "0.0.0.0",
@@ -106,9 +106,9 @@ cat > ./proxy/trojan/config.json <<EOL
         "fast_open_qlen": 20
     }
 }
-EOL
+EOF
 
-cat > ./proxy/brook/config.json <<EOL
+cat > ./proxy/brook/config.json <<EOF
 {
   "listen": ":443",
   "password":"$PASSWORD",
@@ -117,16 +117,16 @@ cat > ./proxy/brook/config.json <<EOL
   "certkey": "$PKEYPATH",
   "udpTimeout": "120"
 }
-EOL
+EOF
 
-cat > ./proxy/socks5/config.json <<EOL
+cat > ./proxy/socks5/config.json <<EOF
 {
   "listen": ":443",
   "users": {"$UUID": "$PASSWORD"},
 }
-EOL
+EOF
 
-cat > ./proxy/snell/config.ini <<EOL
+cat > ./proxy/snell/config.ini <<EOF
 [snell-server]
 listen = 0.0.0.0:443
 psk = $PASSWORD
@@ -138,9 +138,9 @@ udp = true
 udp-max-size = 4096
 timeout = 600
 dns = 1.1.1.1,1.0.0.1
-EOL
+EOF
 
-cat > ./proxy/tuic/config.json <<EOL
+cat > ./proxy/tuic/config.json <<EOF
 {
     "server": "[::]:443",
     "users": {
@@ -162,4 +162,4 @@ cat > ./proxy/tuic/config.json <<EOL
     "gc_lifetime": "15s",
     "log_level": "info"
 }
-EOL
+EOF
