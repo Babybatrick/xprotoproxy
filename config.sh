@@ -163,3 +163,149 @@ cat > ./proxy/tuic/config.json <<EOF
     "log_level": "info"
 }
 EOF
+
+cat > ./proxy/nginx/nginx.conf <<EOF
+http {
+    server {
+        listen 443;
+        server_name 0xhy.$DOMAIN;
+        # Reverse proxy for Hysteria2
+        location / {
+            proxy_pass http://hysteria2:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443;
+        server_name 0xss.$DOMAIN;
+
+        ssl_certificate $CERTPATH;
+        ssl_certificate_key $PKEYPATH;
+
+        # Reverse proxy for Shadowsocks
+        location / {
+            proxy_pass http://shadowsocks:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443;
+        server_name 0xjc.$DOMAIN;
+
+        ssl_certificate $CERTPATH;
+        ssl_certificate_key $PKEYPATH;
+
+        # Reverse proxy for Juicity
+        location / {
+            proxy_pass http://juicity:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443;
+        server_name 0xtj.$DOMAIN;
+
+        ssl_certificate $CERTPATH;
+        ssl_certificate_key $PKEYPATH;
+        
+        # Reverse proxy for Trojan
+        location / {
+            proxy_pass http://trojan:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443;
+        server_name 0xbk.$DOMAIN;
+
+        ssl_certificate $CERTPATH;
+        ssl_certificate_key $PKEYPATH;
+        
+        # Reverse proxy for Brook
+        location / {
+            proxy_pass http://brook:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443;
+        server_name 0xs5.$DOMAIN;
+
+        ssl_certificate $CERTPATH;
+        ssl_certificate_key $PKEYPATH;
+        
+        # Reverse proxy for Socks5
+        location / {
+            proxy_pass http://socks5:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443;
+        server_name 0xsl.$DOMAIN;
+
+        ssl_certificate $CERTPATH;
+        ssl_certificate_key $PKEYPATH;
+        
+        # Reverse proxy for Snell
+        location / {
+            proxy_pass http://snell:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    server {
+        listen 443;
+        server_name 0xtc.$DOMAIN;
+
+        ssl_certificate $CERTPATH;
+        ssl_certificate_key $PKEYPATH;
+        
+        # Reverse proxy for TUIC
+        location / {
+            proxy_pass http://tuic:443;
+            proxy_set_header Host example.com;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+
+    # Fallback for unmatched requests
+    server {
+        listen 443 default_server;
+        server_name _;
+
+        location / {
+            return 404;
+        }
+    }
+}
+EOF
