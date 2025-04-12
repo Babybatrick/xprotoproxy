@@ -1,0 +1,10 @@
+{
+    "listen": ":443",
+    "users": {
+      "$config_uuid_juicity": "$PASSWORD"
+    },
+    "certificate": "$CERTPATH",
+    "private_key": "$PKEYPATH",
+    "congestion_control": "bbr",
+    "log_level": "info"
+  }

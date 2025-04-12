@@ -1,0 +1,105 @@
+version: '3.9'
+
+networks:
+  coffee:
+    driver: bridge
+
+services:
+  hysteria2:
+    image: tobyxdd/hysteria:v2
+    container_name: hysteria2
+    networks:
+      - coffee
+    volumes:
+      - ./proxy/hysteria/config.json:/root/proxy/hysteria/config.json
+      - ${LOCALCERTPATH}:${CERTPATH}
+      - ${LOCALPKEYPATH}:${PKEYPATH}
+    restart: unless-stopped
+    command: server -c /root/proxy/hysteria/config.json
+
+  shadowsocks:
+    image: shadowsocks/shadowsocks-libev:v3.3.5
+    container_name: shadowsocks
+    networks:
+      - coffee
+    volumes:
+      - ./proxy/shadowsocks/config.json:/etc/shadowsocks-libev/config.json
+    restart: unless-stopped
+    command: ss-server -c /etc/shadowsocks-libev/config.json
+
+  juicity:
+    image: ghcr.io/juicity/juicity:v0.4.3
+    container_name: juicity
+    networks:
+      - coffee
+    volumes:
+      - ./proxy/juicity/config.json:/etc/juicity/server.json
+      - ${LOCALCERTPATH}:${CERTPATH}
+      - ${LOCALPKEYPATH}:${PKEYPATH}
+    restart: unless-stopped
+    tty: true
+
+  trojan:
+    image: trojangfw/trojan:latest
+    container_name: trojan
+    networks:
+      - coffee
+    volumes:
+      - ./proxy/trojan/config.json:/config/config.json
+      - ${LOCALCERTPATH}:${CERTPATH}
+      - ${LOCALPKEYPATH}:${PKEYPATH}
+    restart: unless-stopped
+    tty: true
+
+  brook:
+    image: txthinking/brook:latest
+    container_name: brook
+    networks:
+      - coffee
+    volumes:
+      - ${LOCALCERTPATH}:${CERTPATH}
+      - ${LOCALPKEYPATH}:${PKEYPATH}
+    restart: unless-stopped
+    command: wssserver -p ${PASSWORD} --domainaddress ${DOMAIN}:443 --cert ${CERTPATH} --certkey ${PKEYPATH} --udpTimeout 120
+
+  socks5:
+    image: lezamin/socks5:v1.0
+    container_name: socks5
+    networks:
+      - coffee
+    restart: unless-stopped
+    tty: true
+    command: -u ${UUID} -P ${PASSWORD} -p 443
+
+  snell:
+    image: echoer/snell:3.0.1
+    container_name: snell
+    networks:
+      - coffee
+    volumes:
+      - ./proxy/snell/config.ini:/etc/snell/snell-server.conf
+    restart: unless-stopped
+
+  tuic:
+    image: tinyserve/tuic:v1.1.2-fix1
+    container_name: tuic
+    networks:
+      - coffee
+    volumes:
+      - ./proxy/tuic/config.json:/etc/tuic/config.json
+      - ${LOCALCERTPATH}:${CERTPATH}
+      - ${LOCALPKEYPATH}:${PKEYPATH}
+    restart: unless-stopped
+    tty: true
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    networks:
+      - coffee
+    ports:
+      - "80:80"  # Expose HTTP
+      - "443:443" # Expose HTTPS
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
