@@ -12,8 +12,8 @@ read -p "Enter an email address: " email
 
 certpath=/etc/letsencrypt/live/$domain/fullchain.pem
 pkeypath=/etc/letsencrypt/live/$domain/privkey.pem
-localcertpath=./ssl/$domain/fullchain.pem
-localpkeypath=./ssl/$domain/privkey.pem
+localcertpath=./ssl/fullchain.pem
+localpkeypath=./ssl/privkey.pem
 
 #REQUESTING CERTIFICATE
 certbot certonly --manual --agree-tos --no-eff-email --preferred-challenges dns-01 -d *.$domain --email $email --server https://acme-v02.api.letsencrypt.org/directory
