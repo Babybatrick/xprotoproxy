@@ -165,6 +165,10 @@ cat > ./proxy/tuic/config.json <<EOF
 EOF
 
 cat > ./proxy/nginx/nginx.conf <<EOF
+events {
+    worker_connections 1024;
+}
+
 http {
     server {
         listen 443;
