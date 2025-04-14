@@ -60,8 +60,8 @@ echo ""
 echo ""
 echo ""
 echo "HYSTERIA2-----------HYSTERIA2"
-qrencode -t UTF8 $(cat ../proxy/hysteria/client)
-echo $(cat ./proxy/hysteria/client)
+qrencode -t UTF8 $(cat ../proxy/hysteria2/client)
+echo $(cat ./proxy/hysteria2/client)
 echo ""
 echo ""
 echo ""
