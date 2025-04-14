@@ -1,9 +1,14 @@
+networks:
+  coffee:
+    driver: bridge
+
 services:
   hysteria2:
     image: tobyxdd/hysteria:v2
     container_name: hysteria2
     ports:
       - "443:443"
+      - "443:443/udp"
     volumes:
       - ./proxy/hysteria2/config.json:/root/proxy/hysteria2/config.json
       - ${LOCALCERTPATH}:${CERTPATH}
@@ -16,6 +21,7 @@ services:
     container_name: tuic
     ports:
       - "433:443"
+      - "433:443/udp"
     volumes:
       - ./proxy/tuic/config.json:/etc/tuic/config.json
       - ${LOCALCERTPATH}:${CERTPATH}
@@ -28,6 +34,7 @@ services:
     container_name: shadowsocks
     ports:
       - "453:443"
+      - "453:443/udp"
     volumes:
       - ./proxy/shadowsocks/config.json:/etc/shadowsocks-libev/config.json
     restart: unless-stopped
@@ -38,6 +45,7 @@ services:
     container_name: trojan
     ports:
       - "463:443"
+      - "463:443/udp"
     volumes:
       - ./proxy/trojan/config.json:/config/config.json
       - ${LOCALCERTPATH}:${CERTPATH}
@@ -50,6 +58,7 @@ services:
     container_name: juicity
     ports:
       - "473:443"
+      - "473:443/udp"
     volumes:
       - ./proxy/juicity/config.json:/etc/juicity/server.json
       - ${LOCALCERTPATH}:${CERTPATH}
