@@ -23,29 +23,15 @@ services:
     restart: unless-stopped
     tty: true
 
-  # shadowsocks:
-  #   image: shadowsocks/shadowsocks-libev:v3.3.5
-  #   container_name: shadowsocks
-  #   ports:
-  #     - "453:443"
-  #   volumes:
-  #     - ./proxy/shadowsocks/config.json:/etc/shadowsocks-libev/config.json
-  #   restart: unless-stopped
-  #   command: ss-server -c /etc/shadowsocks-libev/config.json
-
   shadowsocks:
-    image: acrisliu/shadowsocks-libev:latest
+    image: shadowsocks/shadowsocks-libev:v3.3.5
     container_name: shadowsocks
     ports:
-      - "453:443/tcp"
-      - "453:443/udp"
+      - "453:443"
     volumes:
       - ./proxy/shadowsocks/config.json:/etc/shadowsocks-libev/config.json
-      - ${LOCALCERTPATH}:${CERTPATH}
-      - ${LOCALPKEYPATH}:${PKEYPATH}
     restart: unless-stopped
-    command: ss-server -c /etc/shadowsocks-libev/config.json --plugin v2ray-plugin --plugin-opts server;tls;host=${DOMAIN};path=/v2ray;cert=${CERTPATH};key=${PKEYPATH} -u
-    tty: true
+    command: ss-server -c /etc/shadowsocks-libev/config.json
 
   trojan:
     image: trojangfw/trojan:latest
