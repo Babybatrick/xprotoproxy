@@ -1,8 +1,0 @@
-{
-    "listen": ":443",
-    "password":"$PASSWORD",
-    "domainaddress": "$DOMAIN",
-    "cert": "$CERTPATH",
-    "certkey": "$PKEYPATH",
-    "udpTimeout": "120"
-}

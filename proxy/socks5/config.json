@@ -1,4 +1,0 @@
-{
-    "listen": ":443",
-    "users": {"$UUID": "$PASSWORD"}
-  }
