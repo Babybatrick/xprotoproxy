@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+./scripts/setup.sh
+source ./scripts/input.sh
+source ./scripts/certificate.sh
+source ./scripts/config.sh
+source ./scripts/client.sh
+
+docker compose up -d
+
+./scripts/output.sh
