@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cat << EOF > xproto.conf
+cat << EOF > belfi.conf
 PASSWORD=$(openssl rand -base64 48 | tr '/+' 'xQ')
 OBFPASSWORD=$(openssl rand -base64 48 | tr '/+' 'xQ')
 UUID=$(uuidgen)

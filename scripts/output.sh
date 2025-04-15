@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "XProto is ready to go!"
+echo "belfi is ready to go!"
 echo ""
 echo ""
 echo ""
