@@ -16,7 +16,7 @@ localcertpath=./ssl/fullchain.pem
 localpkeypath=./ssl/privkey.pem
 
 #REQUESTING CERTIFICATE
-certbot certonly --standalone -d $domain --non-interactive --agree-tos --no-eff-email --email $email
+certbot certonly --standalone -d $domain --non-interactive --agree-tos --no-eff-email --email $email || { echo "Error while generating the certificate, exiting..."; exit 1; }
 
 cp $certpath $localcertpath
 cp $pkeypath $localpkeypath
