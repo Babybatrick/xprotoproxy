@@ -16,7 +16,7 @@ localcertpath=./ssl/fullchain.pem
 localpkeypath=./ssl/privkey.pem
 
 #REQUESTING CERTIFICATE
-certbot certonly --manual --agree-tos --no-eff-email --preferred-challenges dns-01 -d *.$domain --email $email --server https://acme-v02.api.letsencrypt.org/directory
+certbot certonly --standalone -d $domain --non-interactive --agree-tos --no-eff-email --email $email
 
 cp $certpath $localcertpath
 cp $pkeypath $localpkeypath
