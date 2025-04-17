@@ -3,6 +3,13 @@
 
 **`belfi`** is a lightweight tool for deploying and managing multiple proxy servers using Docker. It currently supports spinning up isolated containers for various modern proxy protocols, each running on a separate port.
 
+## 🖥️ Supported OS
+|OS NAME|OS VERSION|STATUS|
+|---|---|---|
+|DEBIAN|12|✅|
+|UBUNTU||NOT TESTED|
+|ARCHLINUX||NOT TESTED|
+|FEDORA||NOT TESTED|
 ## 🌐 Supported Protocols
 
 - **Hysteria2**
